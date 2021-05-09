@@ -12,16 +12,13 @@
 
 ## About
 
-Simple CSV is a C++ library for reading CSV files. The design goals for the library are as follows:
+Simple CSV is a C++ library for parsing CSV. The design goals for the library are as follows:
 
 * No dynamic memory allocation
 * No use of exceptions
 * Small code size (~1 KByte added)
 * Low stack usage (~100 bytes)
 * Few dependencies
-
-The library is suitable for use on embedded microcontrollers, and has been tested on GCC 7.3 as well as
-ARM Compiler 6.15.  
 
 This library is currently in alpha.
 
