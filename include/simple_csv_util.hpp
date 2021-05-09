@@ -15,8 +15,11 @@ namespace simple_csv
 
     static const char *find_next_line(const char *csv)
     {
-        while (!is_end_of_row(++csv));
-        while (is_end_of_line(++csv));
+        while (!is_end_of_row(csv))
+            csv++;
+
+        while (is_end_of_line(csv))
+            csv++;
 
         if (*csv == 0)
             return nullptr;
