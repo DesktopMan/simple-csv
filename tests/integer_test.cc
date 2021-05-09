@@ -2,13 +2,15 @@
 
 #include "simple_csv.hpp"
 
-void check(const char *csv) {
+static void check(const char *csv) {
     simple_csv::reader<> reader(csv);
 
     int expected = 1;
 
     for (auto row: reader) {
         for (auto col: row) {
+            EXPECT_LT(expected, 10);
+
             int value;
 
             EXPECT_TRUE(col.get(value));

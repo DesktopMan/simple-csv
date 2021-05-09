@@ -18,13 +18,14 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(
-        integer_test
+        simple_csv_test
         tests/integer_test.cc
+        tests/string_test.cc
 )
 target_link_libraries(
-        integer_test
+        simple_csv_test
         gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(integer_test)
+gtest_discover_tests(simple_csv_test)
