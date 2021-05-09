@@ -3,32 +3,69 @@
 
 namespace simple_csv
 {
+    static bool is_end_of_line(const char *csv)
+    {
+        return *csv == '\r' || *csv == '\n';
+    }
+
+    static bool is_end_of_row(const char *csv)
+    {
+        return is_end_of_line(csv) || *csv == 0;
+    }
+
     static const char *find_next_line(const char *csv)
     {
-        while (*csv != '\n' && *csv != 0)
-            csv++;
+        while (!is_end_of_row(++csv));
+        while (is_end_of_line(++csv));
 
-        while (*csv == '\n')
-            csv++;
+        if (*csv == 0)
+            return nullptr;
 
         return csv;
     }
 
-    static const char *find_value_end(const char *csv, char delimiter)
+    static const char *find_next_value(const char *csv, char delimiter)
     {
-        bool waiting_on_quote = false;
+        if (csv == nullptr)
+            return nullptr;
 
-        if (*csv == '"') {
-            waiting_on_quote = true;
+        if (*csv == delimiter) { // Empty value
+            csv++;
+
+            if (is_end_of_row(csv))
+                return nullptr;
+
+            return csv;
+        }
+
+        bool quoted = false;
+
+        if (*csv == '"') { // Quoted value
+            quoted = true;
             csv++;
         }
 
-        while ((*csv != delimiter || waiting_on_quote) && *csv != '\n' && *csv != 0) {
-            if (waiting_on_quote && csv[0] == '"' && csv[1] != '"')
-                waiting_on_quote = false;
+        while (!is_end_of_row(csv)) {
+            if (*csv == ',' && !quoted) // End of unquoted value
+                break;
+
+            if (csv[0] == '"' && csv[1] != '"' && quoted) // End of quoted value
+                break;
+
+            if (csv[0] == '"' && csv[1] == '"' && quoted) // Skip embedded quotes
+                csv++;
 
             csv++;
         }
+
+        if (*csv == '"') // Skip end quote
+            csv++;
+
+        if (*csv == delimiter) // Skip delimiter
+            csv++;
+
+        if (is_end_of_row(csv))
+            return nullptr;
 
         return csv;
     }

@@ -35,14 +35,17 @@ namespace simple_csv {
             }
 
             const_iterator &operator++() {
-                _csv = find_value_end(_csv, delimiter);
-
-                if (*_csv == '\n' || *_csv == 0)
-                    _csv = nullptr;
-                else
-                    _csv++;
-
+                _csv = find_next_value(_csv, delimiter);
                 return *this;
+            }
+
+            const_iterator operator+(size_t pos) {
+                auto it = *this;
+
+                for (size_t i = 0; i < pos; i++)
+                    ++it;
+
+                return it;
             }
 
             column operator*() {

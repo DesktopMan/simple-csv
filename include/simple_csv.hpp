@@ -37,11 +37,16 @@ namespace simple_csv {
 
             const_iterator &operator++() {
                 _csv = find_next_line(_csv);
-
-                if (*_csv == 0)
-                    _csv = nullptr;
-
                 return *this;
+            }
+
+            const_iterator &operator+(size_t pos) {
+                auto it = *this;
+
+                for (size_t i = 0; i < pos; i++)
+                    ++it;
+
+                return it;
             }
 
             row<delimiter> &operator*() {

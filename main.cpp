@@ -4,11 +4,28 @@
 
 int main() {
     const char car[] = "Year,Make,Model,Description,Price\n"
-                       "1997.8,Ford,E350,\"ac, abs, moon\",3000.00\n"
+                       "1997,Ford,E350,\"ac, abs, moon\",3000.00\n"
                        "1999,Chevy,\"Venture \"\"Extended Edition\"\"\",\"\",4900.49\n"
                        "1999,Chevy,\"Venture \"\"Extended Edition, Very Large\"\"\",,5000.99\n";
 
     simple_csv::reader<> csv(car);
+
+    printf("======================================\n");
+    printf("Reading a specific column in every row\n");
+    printf("======================================\n\n");
+
+    printf("Prices: ");
+
+    for (auto row: csv) {
+        double price;
+
+        auto column = row.begin() + 4;
+
+        if (column->get(price))
+            printf("%g ", price);
+    }
+
+    printf("\n\n");
 
     printf("===========================================\n");
     printf("Reading all rows and columns with iterators\n");
