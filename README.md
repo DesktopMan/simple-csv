@@ -1,4 +1,14 @@
-## About Simple CSV
+[![Ubuntu](https://github.com/desktopman/simple-csv/workflows/Ubuntu/badge.svg)](https://github.com/desktopman/simple-csv/actions?query=workflow%3AUbuntu)
+
+- [About](#about)
+- [Usage](#usage)
+- [Dependencies](#dependencies)
+- [Features](#features)
+- [Limitations](#limitations)
+- [Example](#example)
+- [TODO](#todo)
+
+## About
 
 Simple CSV is a C++ library for reading CSV files. The design goals for the library are as follows:
 
@@ -68,7 +78,6 @@ int main()
 ## TODO
 
 * More examples
-* Unit tests
 * Error codes
 * Decimal separators other than dot
 * Support for \\" quote escaping
