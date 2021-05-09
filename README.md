@@ -1,3 +1,5 @@
+[![Windows](https://github.com/desktopman/simple-csv/workflows/Windows/badge.svg)](https://github.com/desktopman/simple-csv/actions?query=workflow%3AWindows)
+[![macOS](https://github.com/desktopman/simple-csv/workflows/macOS/badge.svg)](https://github.com/desktopman/simple-csv/actions?query=workflow%3AmacOS)
 [![Ubuntu](https://github.com/desktopman/simple-csv/workflows/Ubuntu/badge.svg)](https://github.com/desktopman/simple-csv/actions?query=workflow%3AUbuntu)
 
 - [About](#about)
