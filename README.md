@@ -15,8 +15,8 @@ This library is currently in alpha.
 
 ## Usage
 
-Put the files from the _include_ directory in your project and include _simple_csv.hpp_. See _main.cpp_ for example
-usage.
+Put the files from the _include_ directory in your project and include _simple_csv.hpp_. See below for a basic code
+example.
 
 ## Dependencies
 
@@ -37,6 +37,33 @@ The library does not have any external dependencies and should build as long as 
 * Expects well-formed CSV
 * Limited support for UTF-8
 * No support for UTF-16
+
+## Example
+
+This example uses cstdio and printf, and should run on even very limited microcontrollers. How the value is used is of
+course up to you.
+
+```cpp
+#include <cstdio>
+
+#include "simple_csv.hpp"
+
+int main()
+{
+    const char csv[] = "1,2,3\n4,5,6\n7,8,9";
+
+    simple_csv::reader<> reader(csv);
+
+    for (auto row: reader) {
+        for (auto col: row) {
+            int value;
+
+            col.get(value));
+            printf("Value: %d\n", value);
+        }
+    }
+}
+```
 
 ## TODO
 
