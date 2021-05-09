@@ -46,5 +46,4 @@ The library does not have any external dependencies and should build as long as 
 * Decimal separators other than dot
 * Support for \\" quote escaping
 * Support for \\n newlines in string values
-* operator[] for rows
 * Byte by byte parsing (e.g. from a stream)

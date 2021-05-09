@@ -8,7 +8,7 @@ namespace simple_csv {
         explicit column(const char *csv) : _csv(csv) {}
 
         bool get(int &value) const {
-            if (*_csv == '"' || *_csv == ',')
+            if (_csv == nullptr || *_csv == '"' || *_csv == ',')
                 return false;
 
             char *end;
@@ -24,7 +24,7 @@ namespace simple_csv {
         }
 
         bool get(double &value) const {
-            if (*_csv == '"' || *_csv == ',')
+            if (_csv == nullptr || *_csv == '"' || *_csv == ',')
                 return false;
 
             char *end;
@@ -40,24 +40,27 @@ namespace simple_csv {
         }
 
         bool get(char value[], size_t size) const {
+            if (_csv == nullptr)
+                return false;
+
             size_t ipos = 0;
             size_t opos = 0;
 
-            bool waiting_on_quote = false;
+            bool quoted = false;
 
             if (_csv[0] == '"') { // Start of value quote
-                waiting_on_quote = true;
+                quoted = true;
                 ipos++;
             }
 
             while (opos < size - 1) {
-                if ((_csv[ipos] == ',' && !waiting_on_quote) || _csv[ipos] == '\n' || _csv[ipos] == 0)
+                if ((_csv[ipos] == ',' && !quoted) || _csv[ipos] == '\n' || _csv[ipos] == 0)
                     break;
 
                 if (_csv[ipos] == '"' && _csv[ipos + 1] == '"') { // Embedded quote
                     value[opos++] = '"';
                     ipos++;
-                } else if (_csv[ipos] == '"' && waiting_on_quote) // End of value quote
+                } else if (_csv[ipos] == '"' && quoted) // End of value quote
                     break;
                 else if (_csv[ipos] == '"') // Unexpected quote
                     return false;
