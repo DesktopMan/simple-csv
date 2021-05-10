@@ -1,40 +1,31 @@
 #include <gtest/gtest.h>
 
-#include "simple_csv.hpp"
-
-static void check(const char *csv) {
-    simple_csv::reader<> reader(csv);
-
-    int expected = 1;
-
-    for (auto row: reader) {
-        for (auto col: row) {
-            EXPECT_LT(expected, 10);
-
-            int value;
-
-            EXPECT_TRUE(col.get(value));
-            EXPECT_EQ(expected++, value);
-        }
-    }
-}
+#include "util.hpp"
 
 TEST(Integer, Valid) {
-    const char csv[] = "1,2,3\n4,5,6\n7,8,9";
-    check(csv);
+    check<int>(
+            "1,2,3\n4,5,6\n7,8,9",
+            {1,2,3,4,5,6,7,8,9}
+    );
 }
 
 TEST(Integer, ValidTrailingNewline) {
-    const char csv[] = "1,2,3\n4,5,6\n7,8,9\n";
-    check(csv);
+    check<int>(
+            "1,2,3\n4,5,6\n7,8,9\n",
+            {1,2,3,4,5,6,7,8,9}
+    );
 }
 
 TEST(Integer, ValidDoubleNewlines) {
-    const char csv[] = "1,2,3\n\n4,5,6\n\n7,8,9";
-    check(csv);
+    check<int>(
+            "1,2,3\n\n4,5,6\n\n7,8,9",
+            {1,2,3,4,5,6,7,8,9}
+    );
 }
 
 TEST(Integer, ValidDoubleNewlinesDoubleTrailingNewlines) {
-    const char csv[] = "1,2,3\n\n4,5,6\n\n7,8,9\n\n";
-    check(csv);
+    check<int>(
+            "1,2,3\n\n4,5,6\n\n7,8,9\n\n",
+            {1,2,3,4,5,6,7,8,9}
+    );
 }
