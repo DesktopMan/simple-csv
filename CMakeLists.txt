@@ -7,6 +7,16 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic")
 
 include_directories(simple_parsers, "include")
 
+add_executable(
+        read_all_values
+        examples/read_all_values.cpp
+)
+
+add_executable(
+        read_specific_column
+        examples/read_specific_column.cpp
+)
+
 include(FetchContent)
 FetchContent_Declare(
         googletest
@@ -23,6 +33,7 @@ add_executable(
         tests/double_test.cc
         tests/string_test.cc
 )
+
 target_link_libraries(
         simple_csv_test
         gtest_main
