@@ -20,6 +20,7 @@ enable_testing()
 add_executable(
         simple_csv_test
         tests/integer_test.cc
+        tests/double_test.cc
         tests/string_test.cc
 )
 target_link_libraries(
