@@ -24,8 +24,8 @@ This library is currently in alpha.
 
 ## Usage
 
-Put the files from the _include_ directory in your project and include _simple_csv.hpp_. See below for a basic code
-example.
+Put the files from the _include_ directory in your project and include _simple_csv.hpp_. See below for basic usage
+examples.
 
 ## Dependencies
 
@@ -49,7 +49,7 @@ The library does not have any external dependencies and should build as long as 
 
 ## Examples
 
-These example uses cstdio and printf, and should run on even very limited microcontrollers. How the values are used is
+These examples use cstdio and printf, and should run on even very limited microcontrollers. How the values are used is
 of course up to you.
 
 ### Read all values
