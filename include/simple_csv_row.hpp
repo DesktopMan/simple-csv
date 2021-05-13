@@ -48,18 +48,18 @@ namespace simple_csv {
                 return it;
             }
 
-            column operator*() {
-                _column = column(_csv);
+            column<delimiter> operator*() {
+                _column = column<delimiter>(_csv);
                 return _column;
             }
 
-            column *operator->() {
-                _column = column(_csv);
+            column<delimiter> *operator->() {
+                _column = column<delimiter>(_csv);
                 return &_column;
             }
 
         protected:
-            column _column; // TODO: Redesign usage
+            column<delimiter> _column;
             const char *_csv;
         };
     };

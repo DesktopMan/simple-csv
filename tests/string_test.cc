@@ -44,3 +44,26 @@ TEST(String, EmbeddedQuoteQuoteEscape) {
             {R"(a"b"c)", "def", "ghi"}
     );
 }
+
+TEST(String, EmptyUnquoted) {
+    check(
+            "abc,,def",
+            {"abc","","def"}
+    );
+}
+
+TEST(String, EmptyQuoted) {
+    check(
+            R"("abc","","def")",
+            {"abc","","def"}
+    );
+}
+
+TEST(String, UnexpectedQuote) {
+    check(
+            R"(a"b"c,d"e"f)",
+            {""},
+            result::UNEXPECTED_QUOTE
+    );
+}
+

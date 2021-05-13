@@ -1,47 +1,41 @@
 #include <cstdlib>
 
+#include "simple_csv_result_codes.hpp"
 #include "simple_csv_util.hpp"
 
 namespace simple_csv {
+    template <char delimiter>
     class column {
     public:
         explicit column(const char *csv) : _csv(csv) {}
 
-        bool get(int &value) const {
-            if (_csv == nullptr || *_csv == '"' || *_csv == ',')
-                return false;
+        int get(int &value) const {
+            int res = check_numeric_start();
+
+            if (res != result::OK)
+                return res;
 
             char *end;
-            value = strtol(_csv, &end, 10);
+            value = (int)strtol(_csv, &end, 10);
 
-            if (end == _csv)
-                return false;
-
-            if (*end != ',' && *end != '\n' && *end != 0)
-                return false;
-
-            return true;
+            return check_numeric_end(end);
         }
 
-        bool get(double &value) const {
-            if (_csv == nullptr || *_csv == '"' || *_csv == ',')
-                return false;
+        int get(double &value) const {
+            int res = check_numeric_start();
+
+            if (res != result::OK)
+                return res;
 
             char *end;
             value = strtod(_csv, &end);
 
-            if (end == _csv)
-                return false;
-
-            if (*end != ',' && *end != '\n' && *end != 0)
-                return false;
-
-            return true;
+            return check_numeric_end(end);
         }
 
-        bool get(char value[], size_t size) const {
+        int get(char value[], size_t size) const {
             if (_csv == nullptr)
-                return false;
+                return result::END_OF_INPUT;
 
             size_t ipos = 0;
             size_t opos = 0;
@@ -54,7 +48,7 @@ namespace simple_csv {
             }
 
             while (opos < size - 1) {
-                if ((_csv[ipos] == ',' && !quoted) || _csv[ipos] == '\n' || _csv[ipos] == 0)
+                if ((_csv[ipos] == ',' && !quoted) || (_csv[ipos] == '\n' && !quoted) || _csv[ipos] == 0)
                     break;
 
                 if (_csv[ipos] == '"' && _csv[ipos + 1] == '"') { // Embedded quote
@@ -62,8 +56,8 @@ namespace simple_csv {
                     ipos++;
                 } else if (_csv[ipos] == '"' && quoted) // End of value quote
                     break;
-                else if (_csv[ipos] == '"') // Unexpected quote
-                    return false;
+                else if (_csv[ipos] == '"')
+                    return result::UNEXPECTED_QUOTE;
                 else // Regular character
                     value[opos++] = _csv[ipos];
 
@@ -71,10 +65,43 @@ namespace simple_csv {
             }
 
             value[opos++] = 0;
-            return opos != size;
+
+            if (opos == size)
+                return result::INSUFFICIENT_BUFFER_SIZE;
+
+            return result::OK;
         }
 
     protected:
         const char *_csv;
+
+        int check_numeric_start() const {
+            if (_csv == nullptr || *_csv == 0)
+                return result::END_OF_INPUT;
+
+            switch (*_csv) {
+                case '"': return result::UNEXPECTED_QUOTE;
+                case delimiter: return result::UNEXPECTED_DELIMITER;
+                case '\r': case '\n': return result::UNEXPECTED_NEWLINE;
+            }
+
+            if (*_csv == '"')
+                return result::UNEXPECTED_QUOTE;
+
+            if (*_csv == ',')
+                return result::UNEXPECTED_DELIMITER;
+
+            return result::OK;
+        }
+
+        int check_numeric_end(const char *end) const {
+            if (end == _csv)
+                return result::UNEXPECTED_DATA;
+
+            if (*end != ',' && *end != '\n' && *end != 0)
+                return result::UNEXPECTED_DATA;
+
+            return result::OK;
+        }
     };
 }
