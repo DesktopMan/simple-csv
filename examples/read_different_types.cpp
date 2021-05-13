@@ -21,9 +21,9 @@ int main()
         double d;
         col->get(d);
         printf("Double: %g\n", d);
+        ++col;
 
         col->get(s, sizeof(s));
         printf("String: %s\n", s);
-        ++col;
     }
 }
