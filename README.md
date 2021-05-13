@@ -7,7 +7,6 @@
 - [Dependencies](#dependencies)
 - [Features](#features)
 - [Limitations](#limitations)
-- [Examples](#examples)
 - [TODO](#todo)
 
 ## About
@@ -22,9 +21,16 @@ Simple CSV is a C++ library for parsing CSV. The design goals for the library ar
 
 This library is currently in alpha.
 
+## Installation
+
+Put the files from the _include_ directory in your project and include _scsv.hpp_.
+
 ## Usage
 
-Put the files from the _include_ directory in your project and include _scsv.hpp_. See below for basic usage examples.
+The included examples use cstdio and printf, and should run on even very limited microcontrollers. How the values are
+used is of course up to you.
+
+[Examples](/examples)
 
 ## Dependencies
 
@@ -45,13 +51,6 @@ The library does not have any external dependencies and should build as long as 
 * Expects well-formed CSV
 * Limited support for UTF-8
 * No support for UTF-16
-
-## Examples
-
-The included examples use cstdio and printf, and should run on even very limited microcontrollers. How the values are
-used is of course up to you.
-
-[Examples](/examples)
 
 ## TODO
 
