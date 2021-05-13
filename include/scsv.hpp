@@ -36,7 +36,7 @@ namespace scsv {
             }
 
             const_iterator &operator++() {
-                _csv = find_next_line(_csv);
+                _csv = find_next_line(_csv, delimiter);
                 return *this;
             }
 

@@ -38,9 +38,16 @@ TEST(String, ValidMixedQuoting) {
     );
 }
 
-TEST(String, EmbeddedQuoteQuoteEscape) {
+TEST(String, UnquotedEmbeddedQuoteQuoteEscape) {
     check(
             R"(a""b""c,"def",ghi)",
+            {R"(a"b"c)", "def", "ghi"}
+    );
+}
+
+TEST(String, QuotedEmbeddedQuoteQuoteEscape) {
+    check(
+            R"("a""b""c","def",ghi)",
             {R"(a"b"c)", "def", "ghi"}
     );
 }
@@ -67,3 +74,18 @@ TEST(String, UnexpectedQuote) {
     );
 }
 
+TEST(String, EmbeddedNewline) {
+    check(
+            "\"a\nb\",\"c\nd\"\n\"e\nf\",\"g\nh\"",
+            {"a\nb","c\nd","e\nf","g\nh"},
+            result::OK
+    );
+}
+
+TEST(String, InsufficientBufferSize) {
+    check(
+            R"("1234567890")",
+            {""},
+            result::INSUFFICIENT_BUFFER_SIZE
+    );
+}
