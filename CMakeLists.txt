@@ -13,6 +13,11 @@ add_executable(
 )
 
 add_executable(
+        read_different_types
+        examples/read_different_types.cpp
+)
+
+add_executable(
         read_specific_column
         examples/read_specific_column.cpp
 )
