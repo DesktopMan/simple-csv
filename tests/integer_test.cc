@@ -39,11 +39,11 @@ TEST(Integer, EndOfInput) {
 }
 
 TEST(Integer, UnexpectedDelimiter) {
-    check<int>(
-            ",",
-            {0},
-            result::UNEXPECTED_DELIMITER
-    );
+    scsv::reader<> reader(",");
+    auto col = reader.begin()->begin();
+
+    int value;
+    ASSERT_EQ(col->get(value), result::UNEXPECTED_DELIMITER);
 }
 
 TEST(Integer, UnexpectedQuote) {

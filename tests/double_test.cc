@@ -18,11 +18,11 @@ TEST(Double, EndOfInput) {
 }
 
 TEST(Double, UnexpectedDelimiter) {
-    check<double>(
-            ",",
-            {0.0},
-            result::UNEXPECTED_DELIMITER
-    );
+    scsv::reader<> reader(",");
+    auto col = reader.begin()->begin();
+
+    double value;
+    ASSERT_EQ(col->get(value), result::UNEXPECTED_DELIMITER);
 }
 
 TEST(Double, UnexpectedQuote) {
