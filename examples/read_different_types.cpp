@@ -1,12 +1,12 @@
 #include <cstdio>
 
-#include "simple_csv.hpp"
+#include "scsv.hpp"
 
 int main()
 {
     const char csv[] = "1,2.3,a\n2,3.4,b\n3,4.5,c";
 
-    simple_csv::reader<> reader(csv);
+    scsv::reader<> reader(csv);
 
     for (auto row: reader) {
         auto col = row.begin();

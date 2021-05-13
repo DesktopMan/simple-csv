@@ -1,19 +1,21 @@
-#ifndef SIMPLE_CSV
-#define SIMPLE_CSV
+#ifndef SCSV_ROW_HPP
+#define SCSV_ROW_HPP
 
-#include "simple_csv_row.hpp"
+#include "scsv.hpp"
+#include "scsv_column.hpp"
+#include "scsv_util.hpp"
 
-namespace simple_csv {
-    template <char delimiter = ',', char decimal_separator = '.'>
-    class reader {
+namespace scsv {
+    template <char delimiter>
+    class row {
     protected:
         class const_iterator;
 
     public:
-        explicit reader(const char *csv) : _csv(csv) {}
+        explicit row(const char *csv) : csv(csv) {}
 
         const_iterator begin() const {
-            return const_iterator(_csv);
+            return const_iterator(csv);
         }
 
         const_iterator end() const {
@@ -21,11 +23,11 @@ namespace simple_csv {
         }
 
     protected:
-        const char *_csv;
+        const char *csv;
 
         class const_iterator {
         public:
-            explicit const_iterator(const char *csv) : _row(csv), _csv(csv) {}
+            explicit const_iterator(const char *csv) : _column(csv), _csv(csv) {}
 
             bool operator==(const const_iterator &row) const {
                 return this->_csv == row._csv;
@@ -36,11 +38,11 @@ namespace simple_csv {
             }
 
             const_iterator &operator++() {
-                _csv = find_next_line(_csv);
+                _csv = find_next_value(_csv, delimiter);
                 return *this;
             }
 
-            const_iterator &operator+(size_t pos) {
+            const_iterator operator+(size_t pos) {
                 auto it = *this;
 
                 for (size_t i = 0; i < pos; i++)
@@ -49,18 +51,18 @@ namespace simple_csv {
                 return it;
             }
 
-            row<delimiter> &operator*() {
-                _row = row<delimiter>(this->_csv);
-                return _row;
+            column<delimiter> operator*() {
+                _column = column<delimiter>(_csv);
+                return _column;
             }
 
-            row<delimiter> *operator->() {
-                _row = row<delimiter>(this->_csv);
-                return &_row;
+            column<delimiter> *operator->() {
+                _column = column<delimiter>(_csv);
+                return &_column;
             }
 
         protected:
-            row<delimiter> _row;
+            column<delimiter> _column;
             const char *_csv;
         };
     };

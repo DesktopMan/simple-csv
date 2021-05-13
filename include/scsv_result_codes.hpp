@@ -1,7 +1,7 @@
-#ifndef SIMPLE_CSV_RESULT_CODES
-#define SIMPLE_CSV_RESULT_CODES
+#ifndef SCSV_RESULT_CODES_HPP
+#define SCSV_RESULT_CODES_HPP
 
-namespace simple_csv {
+namespace scsv {
     namespace result {
         enum {
             OK,
