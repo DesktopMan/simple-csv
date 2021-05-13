@@ -7,9 +7,9 @@
 
 #include <gtest/gtest.h>
 
-#include "simple_csv.hpp"
+#include "scsv.hpp"
 
-using namespace simple_csv;
+using namespace scsv;
 
 template <typename T, char delimiter=',', char decimal_separator='.'>
 void check(const char csv[], std::vector<T> data, int expected = result::OK) {

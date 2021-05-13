@@ -1,9 +1,12 @@
+#ifndef SCSV_COLUMN_HPP
+#define SCSV_COLUMN_HPP
+
 #include <cstdlib>
 
-#include "simple_csv_result_codes.hpp"
-#include "simple_csv_util.hpp"
+#include "scsv_result_codes.hpp"
+#include "scsv_util.hpp"
 
-namespace simple_csv {
+namespace scsv {
     template <char delimiter>
     class column {
     public:
@@ -105,3 +108,5 @@ namespace simple_csv {
         }
     };
 }
+
+#endif

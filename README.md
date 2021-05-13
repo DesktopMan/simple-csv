@@ -24,8 +24,7 @@ This library is currently in alpha.
 
 ## Usage
 
-Put the files from the _include_ directory in your project and include _simple_csv.hpp_. See below for basic usage
-examples.
+Put the files from the _include_ directory in your project and include _scsv.hpp_. See below for basic usage examples.
 
 ## Dependencies
 

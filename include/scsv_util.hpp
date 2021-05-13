@@ -1,7 +1,7 @@
-#ifndef SIMPLE_CSV_UTIL
-#define SIMPLE_CSV_UTIL
+#ifndef SCSV_UTIL_HPP
+#define SCSV_UTIL_HPP
 
-namespace simple_csv
+namespace scsv
 {
     static bool is_end_of_line(const char *csv)
     {
