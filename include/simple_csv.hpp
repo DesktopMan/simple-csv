@@ -60,7 +60,7 @@ namespace simple_csv {
             }
 
         protected:
-            row<delimiter> _row; // TODO: Redesign usage
+            row<delimiter> _row;
             const char *_csv;
         };
     };

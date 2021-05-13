@@ -49,60 +49,13 @@ The library does not have any external dependencies and should build as long as 
 
 ## Examples
 
-These examples use cstdio and printf, and should run on even very limited microcontrollers. How the values are used is
-of course up to you.
+The included examples use cstdio and printf, and should run on even very limited microcontrollers. How the values are
+used is of course up to you.
 
-### Read all values
-
-```cpp
-#include <cstdio>
-
-#include "simple_csv.hpp"
-
-int main()
-{
-    const char csv[] = "1,2,3\n4,5,6\n7,8,9";
-
-    simple_csv::reader<> reader(csv);
-
-    for (auto row: reader) {
-        for (auto col: row) {
-            int value;
-
-            col.get(value);
-            printf("Value: %d\n", value);
-        }
-    }
-}
-```
-
-### Read specific column
-
-```cpp
-#include <cstdio>
-
-#include "simple_csv.hpp"
-
-int main()
-{
-    const char csv[] = "1,2,3\n4,5,6\n7,8,9";
-
-    simple_csv::reader<> reader(csv);
-
-    for (auto row: reader) {
-        auto col = row.begin() + 2;
-
-        int value;
-
-        col->get(value);
-        printf("Value: %d\n", value);
-    }
-}
-```
+[Examples](/examples)
 
 ## TODO
 
-* Error codes
 * Decimal separators other than dot
 * Support for \\" quote escaping
 * Support for \\n newlines in string values

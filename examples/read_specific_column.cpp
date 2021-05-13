@@ -13,7 +13,9 @@ int main()
 
         int value;
 
-        col->get(value);
-        printf("Value: %d\n", value);
+        if (col->get(value) == simple_csv::result::OK)
+            printf("Value: %d\n", value);
+        else
+            printf("Failed to read value!\n");
     }
 }
